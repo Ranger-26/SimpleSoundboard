@@ -87,6 +87,7 @@ namespace SimpleSoundboard
             
             
             //Disposing waveout breaks this????
+            //
             //disposing audiofile makes sound play twice???
             
             //audioFile.Dispose();
