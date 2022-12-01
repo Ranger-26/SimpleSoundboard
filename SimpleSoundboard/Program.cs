@@ -81,6 +81,9 @@ namespace SimpleSoundboard
             var audioFile = new NAudio.Wave.AudioFileReader(@"C:\Users\s2104427\Desktop\Vine-boom-sound-effect.mp3");
             //var waveOut = new NAudio.Wave.WaveOut();
             //waveOut.DeviceNumber = deviceNumber;
+            
+            //TODO:check playback state
+            
             //_SoundEffectWaveOut.Dispose();
             _SoundEffectWaveOut.Init(audioFile);
             _SoundEffectWaveOut.Play();
@@ -91,7 +94,7 @@ namespace SimpleSoundboard
             
             //disposing audiofile makes sound play twice???
 
-            //audioFile.Dispose();
+            audioFile.Dispose();
             //_SoundEffectWaveOut.Dispose();
             
         }
