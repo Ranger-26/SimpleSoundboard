@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using NAudio.Dsp;
 using NAudio.Wave;
 
 namespace SimpleSoundboard
