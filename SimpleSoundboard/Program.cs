@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using NAudio.Wave;
 
 namespace SimpleSoundboard
@@ -7,13 +8,12 @@ namespace SimpleSoundboard
     {
         private static WaveOutEvent _SoundEffectWaveOut;
 
-        private static int VB_OUTPUT = 3;
+        private static int VB_OUTPUT = 1;
         private static int MIC_INPUT = 0;
         
         
         public static void Main(string[] args)
         {
-           Microphone m = new Microphone(MIC_INPUT, VB_OUTPUT);
 
            _SoundEffectWaveOut = new WaveOutEvent();
            _SoundEffectWaveOut.DeviceNumber = VB_OUTPUT;
@@ -32,7 +32,8 @@ namespace SimpleSoundboard
                var caps = WaveOut.GetCapabilities(n);
                Console.WriteLine($"{n}: {caps.ProductName}");
            }
-           
+           Microphone m = new Microphone(MIC_INPUT, VB_OUTPUT);
+
            while (true)
            {
                 
@@ -46,29 +47,6 @@ namespace SimpleSoundboard
 
            }
         }
-        /*
-        public static void PlaySoundboard()
-        {
-            Console.WriteLine("Playing soundboard");            
-            //set device number
-            int deviceNumber = 3;
-            
-            //load in audio file
-            var audioFile = new NAudio.Wave.AudioFileReader(@"C:\Users\siddh\Desktop\vine-boom.mp3");
-            
-            //create and set up new waveout device with audio file
-            var waveOut = new NAudio.Wave.WaveOut();
-            waveOut.DeviceNumber = deviceNumber;
-            waveOut.Init(audioFile);
-            
-            //play audio file
-            waveOut.Play();
-            //dispose resources
-            audioFile.Dispose();
-            waveOut.Dispose();
-        }
-        */
-        
         
         public static void PlaySoundboard()
         {
@@ -83,6 +61,11 @@ namespace SimpleSoundboard
             //waveOut.DeviceNumber = deviceNumber;
             
             //TODO:check playback state
+            if (_SoundEffectWaveOut.PlaybackState == PlaybackState.Playing)
+            {
+                _SoundEffectWaveOut.Stop();
+            }
+            
             
             //_SoundEffectWaveOut.Dispose();
             _SoundEffectWaveOut.Init(audioFile);
@@ -93,7 +76,7 @@ namespace SimpleSoundboard
             //Disposing waveout breaks this????
             
             //disposing audiofile makes sound play twice???
-
+            
             audioFile.Dispose();
             //_SoundEffectWaveOut.Dispose();
             

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using NAudio.Dsp;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 
 namespace SimpleSoundboard
 {
@@ -10,10 +11,13 @@ namespace SimpleSoundboard
 
         private WaveOutEvent _waveOut;
         
-        private BufferedWaveProvider _bufferedWaveProvider; 
+        private BufferedWaveProvider _bufferedWaveProvider;
+
+        private MixingSampleProvider _mixingSampleProvider;
         
         public Microphone(int microphoneId, int outputId)
         {
+            
             //initalize wave in and wave out devices
             _waveIn = new WaveInEvent();
             _waveIn.DeviceNumber = microphoneId;
