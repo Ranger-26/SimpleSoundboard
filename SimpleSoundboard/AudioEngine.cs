@@ -9,6 +9,8 @@ namespace SimpleSoundboard
         private readonly WaveOutEvent outputDevice;
         private readonly MixingSampleProvider mixer;
 
+        public static AudioEngine Instance = new AudioEngine();
+        
         public AudioEngine(int sampleRate = 44100, int channelCount = 2, int waveOutDevice = 0)
         {
             outputDevice = new WaveOutEvent();
@@ -28,6 +30,11 @@ namespace SimpleSoundboard
             input.Dispose();
         }
 
+        public void PlaySound(IWaveProvider waveProvider)
+        {
+            AddMixerInput(waveProvider.ToSampleProvider());
+        }
+        
         private ISampleProvider ConvertToRightChannelCount(ISampleProvider input)
         {
             if (input.WaveFormat.Channels == mixer.WaveFormat.Channels)
