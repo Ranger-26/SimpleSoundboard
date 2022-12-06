@@ -56,7 +56,6 @@ namespace SimpleSoundboard
 
             //_SoundEffectWaveOut.Dispose();
             var sound = "vine-boom.mp3";
-            sound = "GrendelDie.wav";
             AudioEngine.Instance.PlaySound(@"C:\Users\siddh\Desktop\"+sound);
             
             

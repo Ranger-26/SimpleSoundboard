@@ -10,6 +10,8 @@ namespace SimpleSoundboard
     public class Microphone
     {
         private WaveInEvent _waveIn;
+
+        private WaveOutEvent _waveOut;
         
         private BufferedWaveProvider _bufferedWaveProvider;
         
@@ -21,8 +23,13 @@ namespace SimpleSoundboard
             _waveIn.DeviceNumber = microphoneId;
             
             //initalize wave out data
-            _bufferedWaveProvider = new BufferedWaveProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, channelCount));
+            _bufferedWaveProvider = new BufferedWaveProvider(_waveIn.WaveFormat);
 
+            _waveOut = new WaveOutEvent();
+            _waveOut.DeviceNumber = outputId;
+            _waveOut.Init(_bufferedWaveProvider);
+            
+            
             AudioEngine.Instance.PlaySound(_bufferedWaveProvider);
             //start recording
             _waveIn.StartRecording();
