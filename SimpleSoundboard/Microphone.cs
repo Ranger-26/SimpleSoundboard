@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Diagnostics;
+using System.Threading;
 using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
@@ -21,12 +23,11 @@ namespace SimpleSoundboard
             //initalize wave out data
             _bufferedWaveProvider = new BufferedWaveProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, channelCount));
 
-            
+            AudioEngine.Instance.PlaySound(_bufferedWaveProvider);
             //start recording
             _waveIn.StartRecording();
             _waveIn.DataAvailable += OnDataAvailable;
 
-            AudioEngine.Instance.PlaySound(_bufferedWaveProvider);
             
             //run main loop on another thread
             Thread thread = new Thread(MainLoop);
@@ -35,6 +36,7 @@ namespace SimpleSoundboard
 
         public void OnDataAvailable(object sender, WaveInEventArgs e)
         {
+            //Console.WriteLine("Detected sound!");
             _bufferedWaveProvider.AddSamples(e.Buffer, 0 , e.BytesRecorded);
         }
         

@@ -13,13 +13,8 @@ namespace SimpleSoundboard
         
         
         public static void Main(string[] args)
-        {
-
-           _SoundEffectWaveOut = new WaveOutEvent();
-           _SoundEffectWaveOut.DeviceNumber = VB_OUTPUT;
-           
-           
-           Console.WriteLine("----------WaveIn Devices:-------------------");
+        { 
+            Console.WriteLine("----------WaveIn Devices:-------------------");
            for (int n = -1; n < WaveIn.DeviceCount; n++)
            {
                var caps = WaveIn.GetCapabilities(n);
@@ -44,7 +39,6 @@ namespace SimpleSoundboard
                    break;
                }
                PlaySoundboard();
-
            }
         }
         
@@ -56,20 +50,12 @@ namespace SimpleSoundboard
             //paths
             //C:\Users\s2104427\Desktop\Vine-boom-sound-effect.mp3
             //C:\Users\siddh\Desktop\vine-boom.mp3
-            var audioFile = new NAudio.Wave.AudioFileReader(@"C:\Users\s2104427\Desktop\Vine-boom-sound-effect.mp3");
             //var waveOut = new NAudio.Wave.WaveOut();
             //waveOut.DeviceNumber = deviceNumber;
-            
-            //TODO:check playback state
-            if (_SoundEffectWaveOut.PlaybackState == PlaybackState.Playing)
-            {
-                _SoundEffectWaveOut.Stop();
-            }
-            
-            
+
+
             //_SoundEffectWaveOut.Dispose();
-            _SoundEffectWaveOut.Init(audioFile);
-            _SoundEffectWaveOut.Play();
+            AudioEngine.Instance.PlaySound(@"C:\Users\siddh\Desktop\vine-boom.mp3");
             
             
             
@@ -77,9 +63,7 @@ namespace SimpleSoundboard
             
             //disposing audiofile makes sound play twice???
             
-            audioFile.Dispose();
             //_SoundEffectWaveOut.Dispose();
-            
         }
         
     }
